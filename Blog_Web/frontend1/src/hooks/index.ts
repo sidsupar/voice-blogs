@@ -51,11 +51,11 @@ export const useBlogById = (id) => {
 }
 
 export const SubmitPost = async (title, textData)=>{
-
+    // console.log(`date is ${Date_toYMD(new Date(Date.now()))}`)
     try{
         const res = await axios.post(`${BACKEND_URL}/api/v1/blog`,{
             title:title,
-            content:textData
+            content:textData,
         })
 
         if(res.status == 200){
@@ -74,3 +74,16 @@ export const SubmitPost = async (title, textData)=>{
     }
 
 }
+// function Date_toYMD(date) {
+//     let year, month, day;
+//     year = String(date.getFullYear());
+//     month = String(date.getMonth() + 1);
+//     if (month.length == 1) {
+//         month = "0" + month;
+//     }
+//     day = String(date.getDate());
+//     if (day.length == 1) {
+//         day = "0" + day;
+//     }
+//     return year + "-" + month + "-" + day;
+// }

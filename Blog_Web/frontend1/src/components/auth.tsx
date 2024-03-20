@@ -3,9 +3,12 @@ import { ChangeEvent, ChangeEventHandler, useState } from "react";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import axios from "axios"; 
 import { BACKEND_URL } from "../config.ts"
+import jwt from "jsonwebtoken";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { userAtom } from "../globalStates/atom.tsx";
 
 export default function Auth({type}: {type: "signup" | "signin"}){
-
+    const setUserDetails = useSetRecoilState(userAtom);
     const navigate:NavigateFunction = useNavigate();
 
     const [postInputs, setPostinputs ]= useState<SignUpInputType>({
@@ -36,9 +39,14 @@ export default function Auth({type}: {type: "signup" | "signin"}){
             console.log("sendRequest ------------4-------------------")
             console.log("sendRequest ------------5-------------------")
             if(res.status == 200){
-                const jwt = res.data.token;
-                localStorage.setItem('token', jwt);
-                axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt;
+                const jtoken = res.data.token;
+                localStorage.setItem('token', jtoken);
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + jtoken;
+                const decodedJWT = jwt.decode(jtoken);
+                setUserDetails(decodedJWT);
+                console.log("Decoded jwt---------------------------");
+                console.log(decodedJWT)
+
                 navigate("/blogs");
             }else{
                 alert("Request hit but not res = 200")

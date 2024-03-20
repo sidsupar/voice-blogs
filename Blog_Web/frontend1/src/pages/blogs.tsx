@@ -19,6 +19,7 @@ export default function Blogs(){
             <AppBar />
             <div>
                 {blogs.map((blog, index) => {
+                    console.log(`${blog.id} published on ${blog.publishDate}`)
                     return (
                         <>
                             <div key={index} className="flex justify-center">
@@ -26,7 +27,7 @@ export default function Blogs(){
                                     <BlogCard key={index + 2} authorName={blog.author.name == null ? "anonymous" : blog.author.name}
                                         content={blog.content}
                                         title={blog.title}
-                                        publishedDate={blog.publishedDate ? blog.publishedDate : "mm/dd/yyyy"}
+                                        publishedDate={blog.publishDate ? blog.publishDate : "mm/dd/yyyy"}
                                         id={blog.id}
                                     />
                                 </div>

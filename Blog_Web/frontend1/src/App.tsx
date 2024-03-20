@@ -9,6 +9,7 @@ import Blog from './pages/blog'
 import Blogs from './pages/blogs'
 import axios from 'axios'
 import Publish from './pages/publish'
+import { RecoilRoot } from 'recoil'
 
 function App() {
   const [count, setCount] = useState(0);
@@ -20,15 +21,17 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-            <Route path="signup" element={<SignUp />}/>
-            <Route path="signin" element={<SignIn />}/>
-            <Route path="blogs" element={<Blogs />}/>
-            <Route path="blog/:id" element={<Blog />}/>
-            <Route path="/publish" element={<Publish />} />
-        </Routes>
-      </BrowserRouter>
+    <RecoilRoot>
+        <BrowserRouter>
+          <Routes>
+              <Route path="signup" element={<SignUp />}/>
+              <Route path="signin" element={<SignIn />}/>
+              <Route path="blogs" element={<Blogs />}/>
+              <Route path="blog/:id" element={<Blog />}/>
+              <Route path="/publish" element={<Publish />} />
+          </Routes>
+        </BrowserRouter>
+      </RecoilRoot>
     </>
   )
 }

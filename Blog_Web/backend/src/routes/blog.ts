@@ -47,7 +47,8 @@ const app = new Hono<{
     type blogBodyType = {
         title:string,
         content:string,
-        authorId:number
+        authorId:number,
+        publishedDate: Date
     }
     const blogBody:blogBodyType= await c.req.json();
     try{
@@ -57,6 +58,7 @@ const app = new Hono<{
                 title: blogBody.title,
                 content: blogBody.content,
                 authorId: parseInt(userId),
+                publishDate: new Date(Date.now())
             }
         });
 
@@ -143,6 +145,7 @@ const app = new Hono<{
                 content:true,
                 title:true,
                 id:true,
+                publishDate:true,
                 author:{
                     select:{
                         name:true
@@ -192,6 +195,7 @@ const app = new Hono<{
                 content:true,
                 title:true,
                 id:true,
+                publishDate:true,
                 author:{
                     select:{
                         name:true

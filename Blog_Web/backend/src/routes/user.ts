@@ -37,7 +37,9 @@ app.post("/signup", InputValidationSignUp,async (c) => {
   
       console.log(res)
       const jwt = await sign({
-        id: res.id
+        id: res.id,
+        uname: userBody.username,
+        name:userBody.name
       }, c.env.JWT_SECRET);
       c.status(200);
       return (c.json({
@@ -76,7 +78,8 @@ app.post("/signup", InputValidationSignUp,async (c) => {
             password:userBody.password
           },
           select:{
-            id:true
+            id:true,
+            name:true
           }
         }
       )
@@ -86,7 +89,9 @@ app.post("/signup", InputValidationSignUp,async (c) => {
       }
   
       const jwt = await sign({
-        id: res.id
+        id: res.id,
+        uname: userBody.username,
+        name: res.name
       }, c.env.JWT_SECRET);
       c.status(200)
       return (c.json({

@@ -16,16 +16,16 @@ export default function Blog(){
             </>
         )
     }
-
+    console.log(`${blogByid.id} published on ${blogByid.publishDate}`)
     return(
         <>
             <AppBar />
-            <div className="flex justify-center">
+            <div className="flex justify-center absolute z-10">
                 <div className="flex justify-center">
                     <FullBlogCard authorName={blogByid.author.name == null ? "anonymous" : blogByid.author.name}
                               content={blogByid.content}
                               title={blogByid.title}
-                              publishedDate={blogByid.publishedDate ? blogByid.publishedDate : "mm/dd/yyyy"}
+                              publishedDate={blogByid.publishDate ? blogByid.publishDate : "mm/dd/yyyy"}
                               id={blogByid.id}
                     />
                 </div>

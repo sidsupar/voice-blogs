@@ -38,20 +38,26 @@ export default function BlogPost(){
     const [submit, setSubmit] = useState(false);
     const navigate = useNavigate();
 
-    const submitStatus = useMemo(()=>{
+    const submitStatus = useEffect(()=>{
         if(submit){
+            setSubmit(false)
+            console.log("Submit post called")
             const submitPost = async ()=>{
             const {submitPostStatus, data}= await SubmitPost(title, textData);
             
             if(submitPostStatus){
-                navigate("/blogs")
+            setTimeout(
+                ()=>{
+                    navigate("/blogs")
+                }
+                ,5000
+            )
             }else{
                 console.log(`${data.data}`)
             }
             
         }
             submitPost()
-            setSubmit(false)
         }else{
             console.log("Submit is false")
             setSubmit(false)

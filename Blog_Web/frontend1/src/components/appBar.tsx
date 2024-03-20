@@ -1,15 +1,37 @@
 import { Link } from "react-router-dom";
 import Avatar from "./avatar";
+import { useEffect, useState } from "react";
+import { AvatarDetails } from "./avatarDetails";
+import { useRecoilValue } from "recoil";
+import { userAtom } from "../globalStates/atom";
+import AppBarAvatar from "./appBarAvatar";
+
+// export function useIsVisible(ref: any) {
+//     const [isIntersecting, setIntersecting] = useState(false);
+  
+//     useEffect(() => {
+//       const observer = new IntersectionObserver(([entry]) => {
+//           setIntersecting(entry.isIntersecting)
+//       } 
+//       );
+      
+//       observer.observe(ref.current);
+//       return () => {
+//         observer.disconnect();
+//       };
+//     }, [ref]);
+  
+//     return isIntersecting;
+//   }
 
 export default function AppBar(){
-
 
     return(
         <>
             <div className="border-b flex justify-between px-10 py-2">               
                 <div className="font-bold text-lg flex flex-col text-center justify-center">
                     <Link to="/blogs">
-                        Medium
+                        Voice
                     </Link>  
                 </div>
                                               
@@ -20,10 +42,14 @@ export default function AppBar(){
                                 New
                             </Link>
                         </div>
-                    </button>  
-                    <Avatar name="Siddhartha Mudgal" size={"big"}/>
-                </div>
+                    </button>
+                    <div>
+                        <AppBarAvatar />
+                    </div>                            
+                </div>     
             </div>
+           
+            
         </>
     )
 }
