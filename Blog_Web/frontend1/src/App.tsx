@@ -21,6 +21,7 @@ function App() {
         <BrowserRouter>
           <Routes>
               <Route index element={<SignUp />}/>
+              <Route path="signup" element={<SignUp />}/>
               <Route path="signin" element={<SignIn />}/>
               <Route path="blogs" element={<Blogs />}/>
               <Route path="blog/:id" element={<Blog />}/>
