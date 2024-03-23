@@ -20,7 +20,7 @@ function App() {
     <RecoilRoot>
         <BrowserRouter>
           <Routes>
-              <Route path="signup" element={<SignUp />}/>
+              <Route index element={<SignUp />}/>
               <Route path="signin" element={<SignIn />}/>
               <Route path="blogs" element={<Blogs />}/>
               <Route path="blog/:id" element={<Blog />}/>
