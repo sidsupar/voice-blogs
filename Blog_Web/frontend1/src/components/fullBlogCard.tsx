@@ -33,7 +33,7 @@ export default function BlogCard({authorName,title,content,publishedDate, id}: B
         <>          
                 <div className="border-b border-slate-200 w-4/5">
                     <div className="grid grid-cols-12 mt-5">                        
-                        <div className="flex flex-col justify-center col-span-8 p-10">
+                        <div className="flex flex-col justify-center col-span-12 md:col-span-8 lg:col-span-8 p-10">
                             <div className="pl-2 font-serif mt-2 cursor-pointer text-3xl font-extrabold">                    
                                 {title}
                             </div>
@@ -47,10 +47,10 @@ export default function BlogCard({authorName,title,content,publishedDate, id}: B
                                 {Math.ceil(content.length / 100)+" mins"}
                             </div>
                         </div>
-                        <div className="col-span-1">
+                        <div className="col-span-12 md:col-span-1 lg:col-span-2">
 
                         </div>
-                        <div className="p-10 font-serif max-w-screen-2xl flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-full col-span-3">
+                        <div className="p-10 font-serif max-w-screen-2xl flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-full col-span-12 md:col-span-3 lg:col-span-2">
                             <div className="flex justify-center pl-2 font-bold text-slate-300 text-sm">
                                 Author
                             </div>
