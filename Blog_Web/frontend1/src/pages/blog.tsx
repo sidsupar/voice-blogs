@@ -4,15 +4,15 @@ import { useBlogById } from "../hooks";
 import AppBar from "../components/appBar";
 import FullBlogSkel from "../components/fullBlogSkel";
 
-interface BlogById {
-    id?: string;
-    author?: {
-        name?: string;
-    };
-    content?: string;
-    title?: string;
-    publishDate?: string;
-}
+// interface BlogById {
+//     id?: string;
+//     author?: {
+//         name?: string;
+//     };
+//     content?: string;
+//     title?: string;
+//     publishDate?: string;
+// }
 
 export default function Blog() {
     console.log("-----------------1--------------------")
@@ -37,7 +37,7 @@ export default function Blog() {
                 <AppBar />
                 <div className="flex justify-center absolute z-10">
                     <div className="flex justify-center">
-                        {isBlogById(blogByid) ? <FullBlogCard
+                        {blogByid != null ? <FullBlogCard
                             authorName={blogByid.author?.name || "anonymous"}
                             content={blogByid.content}
                             title={blogByid.title}
@@ -54,8 +54,8 @@ export default function Blog() {
     
 }
 
-// Type guard to check if the object is of type BlogById
-const isBlogById = (obj: any): obj is BlogById => {
-    return typeof obj === 'object' && obj !== null &&
-        typeof obj.id === 'string';
-};
+// // Type guard to check if the object is of type BlogById
+// const isBlogById = (obj: any): obj is BlogById => {
+//     return typeof obj === 'object' && obj !== null &&
+//         typeof obj.id === 'string';
+// };

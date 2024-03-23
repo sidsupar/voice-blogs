@@ -37,7 +37,7 @@ export const useBlogs = (): [boolean ,Blog[]] => {
     return [loading, blogs]
 }
 
-type BlogById = Array<{
+type BlogById = {
     content?:string,
     title?:string,
     publishDate?:string,
@@ -45,11 +45,11 @@ type BlogById = Array<{
     author?:{
         name: string
     }
-} | string>
+}
 
-export const useBlogById = (id?: string) => {
+export const useBlogById = (id?: string): [boolean, BlogById] => {
     const [loading, setLoading] = useState<boolean>(true);
-    const [blog, setBlog] = useState<BlogById | null>(null);
+    const [blog, setBlog] = useState<BlogById>({});
     console.log(`useBlogById to search for blog by id = ${id}`)
 
     useEffect(() => {
@@ -65,12 +65,12 @@ export const useBlogById = (id?: string) => {
                     setBlog(blogsRes.data.blogs);
                 } else {
                     setLoading(false);
-                    setBlog(null);
+                    setBlog({});
                 }
             } catch (error) {
                 setLoading(false);
                 console.error("Error fetching blog:", error);
-                setBlog(null);
+                setBlog({});
             }
         }
         getBlog();
