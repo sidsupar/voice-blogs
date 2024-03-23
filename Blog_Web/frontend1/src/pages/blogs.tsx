@@ -1,5 +1,6 @@
 import AppBar from "../components/appBar";
 import BlogCard from "../components/blogCard";
+import BlogsSkeleton from "../components/blogsSkeleton";
 import { useBlogs } from "../hooks";
 
 export default function Blogs(){
@@ -9,7 +10,15 @@ export default function Blogs(){
     if(loading){
         return (
             <>
-                Loading...
+                <AppBar />
+                <BlogsSkeleton />
+                <BlogsSkeleton />
+                <BlogsSkeleton />
+                <BlogsSkeleton />
+                <BlogsSkeleton />
+                <BlogsSkeleton />
+                <BlogsSkeleton />
+                <BlogsSkeleton />
             </>
         )
     }

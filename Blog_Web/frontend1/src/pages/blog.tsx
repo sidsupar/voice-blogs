@@ -2,6 +2,7 @@ import { useLoaderData, useParams } from "react-router";
 import FullBlogCard from "../components/fullBlogCard";
 import { useBlogById } from "../hooks";
 import AppBar from "../components/appBar";
+import FullBlogSkel from "../components/fullBlogSkel";
 
 export default function Blog(){
     const queryParams = useParams();
@@ -12,7 +13,7 @@ export default function Blog(){
     if(loading){
         return (
             <>
-                Loading...
+                <FullBlogSkel />
             </>
         )
     }

@@ -11,12 +11,12 @@ export default function Avatar({name, size="small"}: {name: string, size:"small"
                 setSizeInNum(6)
             }            
         }
-    ,[]);  
+    ,[sizeInNum]);  
     console.log("Avatar size = "+sizeInNum)
     return(
         <>
             <div className="cursor-pointer">
-                <div className={`w-${sizeInNum} h-${sizeInNum} inline-flex items-center justify-center bg-gray-100 rounded-full dark:bg-gray-600`}>
+                <div className={` p-${size == "small" ? 2 : 5} inline-flex items-center justify-center bg-gray-200 rounded-full dark:bg-gray-600`}>
                     <span className={`${size == "small" ? "text-xs" : "text-sm"} text-gray-600 dark:text-gray-300`}>
                         {name[0]}
                     </span>
