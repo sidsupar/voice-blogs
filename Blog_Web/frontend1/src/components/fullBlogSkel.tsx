@@ -1,14 +1,22 @@
-import Avatar from "./avatar"
+// import Avatar from "./avatar"
 import AppBar from "./appBar"
 import { useEffect, useState } from "react"
-import clsx from 'clsx';
+// import clsx from 'clsx';
 
-interface BlogCardType{
-    authorName:string,
-    title:string,
-    content:string,
-    publishedDate:string,
-    id:number
+// interface BlogCardType{
+//     authorName:string,
+//     title:string,
+//     content:string,
+//     publishedDate:string,
+//     id:number
+// }
+
+
+interface SizeRec {
+    px?:number,
+    py?:number,
+    w?:number,
+    h?:number
 }
 
 function Circle(){
@@ -22,7 +30,7 @@ function Circle(){
 }
 export function TextSimultate({size="sm"}: {size:"sm"|"md"|"lg"}){
 
-    const [sizeRec, setSizeRec] = useState({});
+    const [sizeRec, setSizeRec] = useState<SizeRec>({});
     
     useEffect(
         ()=>{
@@ -52,8 +60,8 @@ export function TextSimultate({size="sm"}: {size:"sm"|"md"|"lg"}){
                 default : console.log("Invalid size");
             }
         }
-    ,[size, sizeRec]);
-    console.log(`sizeRec[h]: ${sizeRec?.h} & sizeRec[w]: ${sizeRec?.w}`)
+    ,[size]);
+    // console.log(`sizeRec[h]: ${sizeRec?.h} & sizeRec[w]: ${sizeRec?.w}`)
 
     return(
         <>
@@ -77,7 +85,7 @@ export function AvatarSkel({size="small"}: {size:"small"|"big"}){
                 setSizeInNum(6)
             }            
         }
-    ,[sizeInNum]);  
+    ,[sizeInNum, size]);  
     console.log("Avatar size = "+sizeInNum)
     return(
         <>
@@ -92,7 +100,7 @@ export function AvatarSkel({size="small"}: {size:"small"|"big"}){
     )
 }
 
-export default function FullBlogSkel({authorName,title,content,publishedDate, id}: BlogCardType){
+export default function FullBlogSkel(){
 
 
     return(

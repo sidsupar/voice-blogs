@@ -1,9 +1,9 @@
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react"
-import AppBar from "./appBar"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
+// import AppBar from "./appBar"
 import { useNavigate } from "react-router"
 import { SubmitPost } from "../hooks"
 
-function SubmitButton({status, setSubmit}: {status: boolean}){
+function SubmitButton({status, setSubmit}: {status: boolean, setSubmit:Dispatch<SetStateAction<boolean>>}){
 
     if(status){
         return(
@@ -33,8 +33,9 @@ function SubmitButton({status, setSubmit}: {status: boolean}){
 
 function InputField({label, setTitle}: {label:string, setTitle:Dispatch<SetStateAction<string>>}){
 
-    function onChange(e){
-        setTitle(e.target.value)
+    function onChange(e: React.SyntheticEvent){
+        const tgt = e.target as HTMLInputElement
+        setTitle(tgt?.value)
     }
 
     return(
@@ -48,8 +49,9 @@ function InputField({label, setTitle}: {label:string, setTitle:Dispatch<SetState
 
 function TextArea({label, setTextData}: {label:string, setTextData:Dispatch<SetStateAction<string>>}){
 
-    function onChange(e){
-        setTextData(e.target.value)
+    function onChange(e: React.SyntheticEvent){
+        const tgt = e.target as HTMLInputElement
+        setTextData(tgt?.value)
     }
 
     return(
@@ -67,7 +69,7 @@ export default function BlogPost(){
     const [loader, setLoader] = useState(false);
     const navigate = useNavigate();
 
-    const submitStatus = useEffect(()=>{
+    useEffect(()=>{
         if(submit){
             setSubmit(false)
             setLoader(true);
@@ -84,7 +86,9 @@ export default function BlogPost(){
                 );
                 setLoader(false);
             }else{
-                console.log(`${data.data}`)
+                if(data && typeof data == "object" && "data" in data && typeof data.data == "object"){
+                    console.log(`${data?.data}`)
+                }                
             }
             
         }

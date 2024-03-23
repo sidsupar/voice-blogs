@@ -4,7 +4,7 @@ import { Circle } from "./blogCard";
 export function TextSimultate({size="sm"}: {size:"sm"|"md"|"lg"}){
 
     const [sizeRec, setSizeRec] = useState(1/4);
-    
+    console.log(`sizeRec = ${sizeRec} in TextSimulate`)
     useEffect(
         ()=>{
             switch(size){
@@ -14,7 +14,7 @@ export function TextSimultate({size="sm"}: {size:"sm"|"md"|"lg"}){
                 default : console.log("Invalid size");
             }
         }
-    ,[size,])
+    ,[])
 
     return(
         <>
@@ -38,7 +38,7 @@ export function AvatarSkel({size="small"}: {size:"small"|"big"}){
                 setSizeInNum(6)
             }            
         }
-    ,[sizeInNum]);  
+    ,[sizeInNum, size]);  
     console.log("Avatar size = "+sizeInNum)
     return(
         <>

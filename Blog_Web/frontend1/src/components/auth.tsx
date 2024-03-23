@@ -1,10 +1,10 @@
 import { SignUpInputType } from "@sidsupar/medium-commons";
-import { ChangeEvent, ChangeEventHandler, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import axios from "axios"; 
 import { BACKEND_URL } from "../config.ts"
 import jwt from "jsonwebtoken";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { userAtom } from "../globalStates/atom.tsx";
 
 export default function Auth({type}: {type: "signup" | "signin"}){
@@ -22,6 +22,7 @@ export default function Auth({type}: {type: "signup" | "signin"}){
         password:string,
         name?:string
     }){
+        console.log(body)
         try{
 
             // axios.defaults.withCredentials = true;
@@ -51,8 +52,9 @@ export default function Auth({type}: {type: "signup" | "signin"}){
             }else{
                 alert("Request hit but not res = 200")
             }
-        }catch(err: any){
-            alert("Request to auth failed"+err.message);
+        }catch(err: unknown){
+            if(err instanceof Error)
+                alert("Request to auth failed"+err.message);
             console.log(err)
         }
     }
@@ -74,7 +76,7 @@ export default function Auth({type}: {type: "signup" | "signin"}){
                         ...postInputs,
                         password: e.target.value
                     })}} type="password"/>
-                    <button onClick={(e)=>{
+                    <button onClick={()=>{
                             sendAuth(type, postInputs)
                     }
                     } type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">{type === "signup" ? "Signup" : "SignIn"}</button>

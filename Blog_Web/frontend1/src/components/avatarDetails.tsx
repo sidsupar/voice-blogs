@@ -4,8 +4,8 @@ import Logout from "./logout";
 
 export function AvatarDetails(){
     const userDetails = useRecoilValue(userAtom);
-    console.log("Username from recoil = ");
-    console.log(userDetails)
+    // console.log("Username from recoil = ");
+    // console.log(userDetails)
     return(
         <>        
             <div className="z-10 p-10 border border-black justify-center items-center font-serif max-w-screen-2xl relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-full">

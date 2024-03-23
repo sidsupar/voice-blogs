@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import Avatar from "./avatar";
-import { useEffect, useState } from "react";
-import { AvatarDetails } from "./avatarDetails";
-import { useRecoilValue } from "recoil";
-import { userAtom } from "../globalStates/atom";
+// import Avatar from "./avatar";
+// import { useEffect, useState } from "react";
+// import { AvatarDetails } from "./avatarDetails";
+// import { useRecoilValue } from "recoil";
+// import { userAtom } from "../globalStates/atom";
 import AppBarAvatar from "./appBarAvatar";
 
 // export function useIsVisible(ref: any) {

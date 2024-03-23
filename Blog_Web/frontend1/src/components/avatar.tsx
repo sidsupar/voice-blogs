@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { AvatarDetails } from "./avatarDetails";
+import { useEffect, useState } from "react";
+// import { AvatarDetails } from "./avatarDetails";
 
 export default function Avatar({name, size="small"}: {name: string, size:"small"|"big"}){
     const [sizeInNum, setSizeInNum] = useState(6);
@@ -11,8 +11,8 @@ export default function Avatar({name, size="small"}: {name: string, size:"small"
                 setSizeInNum(6)
             }            
         }
-    ,[sizeInNum]);  
-    console.log("Avatar size = "+sizeInNum)
+    ,[sizeInNum, size]);  
+    // console.log("Avatar size = "+sizeInNum)
     return(
         <>
             <div className="cursor-pointer">

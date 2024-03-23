@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
 import Avatar from "./avatar"
-import AppBar from "./appBar"
+// import AppBar from "./appBar"
 
 interface BlogCardType{
-    authorName:string,
-    title:string,
-    content:string,
-    publishedDate:string,
-    id:number
+    authorName?:string,
+    title?:string,
+    content?:string,
+    publishedDate?:string,
+    id?:string
 }
 
 function Circle(){
@@ -22,7 +22,13 @@ function Circle(){
 
 export default function BlogCard({authorName,title,content,publishedDate, id}: BlogCardType){
 
-
+    if(content == undefined){
+        return null
+    }
+    if(authorName == undefined){
+        return null
+    }
+    console.log(id)
     return(
         <>          
                 <div className="border-b border-slate-200 w-4/5">

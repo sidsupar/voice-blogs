@@ -1,11 +1,22 @@
-import { SetStateAction, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { BACKEND_URL } from "../config";
 import axios from "axios";
 
-export const useBlogs = () => {
+interface Blog {
+    id: number;
+    author: {
+        name: string;
+    };
+    title: string;
+    content: string;
+    publishDate: string;
+}
+
+
+export const useBlogs = (): [boolean ,Blog[]] => {
 
     const [loading, setLoading] = useState(true);
-    const [blogs, setBlogs] = useState([]);
+    const [blogs, setBlogs] = useState<Blog[]>([]);
 
     useEffect(()=>{
         const getBlogs = async () =>{
@@ -17,40 +28,58 @@ export const useBlogs = () => {
                 setBlogs(blogsRes.data.blogs);
             }else{
                 setLoading(false);
-                setBlogs(["unable", 'to', 'get', 'data', 'from', 'backend']);
+                setBlogs([]);
             }
         }
         getBlogs();
     },[])
 
-    return [loading, blogs ]
+    return [loading, blogs]
 }
 
-export const useBlogById = (id) => {
+type BlogById = Array<{
+    content?:string,
+    title?:string,
+    publishDate?:string,
+    id?:string,
+    author?:{
+        name: string
+    }
+} | string>
 
-    const [loading, setLoading] = useState(true);
-    const [blog, setBlog] = useState([]);
-    console.log(`useBlogById to search for blog by id =${id}`)
-    useEffect(()=>{
-        const getBlog = async () =>{
+export const useBlogById = (id?: string) => {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [blog, setBlog] = useState<BlogById | null>(null);
+    console.log(`useBlogById to search for blog by id = ${id}`)
+
+    useEffect(() => {
+        const getBlog = async () => {
+            // if (!id) return; // Exit early if id is undefined or null
+
             const getBlogUrl = `${BACKEND_URL}/api/v1/blog/${id}`;
-            const blogsRes = await axios.get(getBlogUrl)
-            console.log(blogsRes)
-            if(blogsRes.status == 200){
+            try {
+                const blogsRes = await axios.get(getBlogUrl)
+                console.log(blogsRes)
+                if (blogsRes.status === 200) {
+                    setLoading(false);
+                    setBlog(blogsRes.data.blogs);
+                } else {
+                    setLoading(false);
+                    setBlog(null);
+                }
+            } catch (error) {
                 setLoading(false);
-                setBlog(blogsRes.data.blogs);
-            }else{
-                setLoading(false);
-                setBlog(["unable", 'to', 'get', 'data', 'from', 'backend']);
+                console.error("Error fetching blog:", error);
+                setBlog(null);
             }
         }
         getBlog();
-    },[id])
+    }, [id])
 
-    return [loading, blog ]
+    return [loading, blog]
 }
 
-export const SubmitPost = async (title, textData)=>{
+export const SubmitPost = async (title: string, textData: string) : Promise<{ submitPostStatus?: boolean, data?: object | string }> =>{
     // console.log(`date is ${Date_toYMD(new Date(Date.now()))}`)
     try{
         const res = await axios.post(`${BACKEND_URL}/api/v1/blog`,{
@@ -66,12 +95,20 @@ export const SubmitPost = async (title, textData)=>{
         }else{
             throw new Error("Not able to create blog")
         }
-    }catch(err: any){
-        return {
-            submitPostStatus: false,
-            data:err.message
-        }
+    }catch(err: unknown){
+        if(err instanceof Error)
+            return {
+                submitPostStatus: false,
+                data:err.message
+            }
     }
+
+    return ( 
+        {
+            submitPostStatus: false,
+            data:"Something went wrong"
+        }
+    )
 
 }
 // function Date_toYMD(date) {
@@ -87,3 +124,4 @@ export const SubmitPost = async (title, textData)=>{
 //     }
 //     return year + "-" + month + "-" + day;
 // }
+
