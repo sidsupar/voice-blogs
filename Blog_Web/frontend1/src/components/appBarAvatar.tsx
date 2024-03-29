@@ -30,12 +30,14 @@ export default function AppBarAvatar(){
 
     return(
         <>
-            <div className="grid grid-cols-1" onClick={()=>setShowDetails((v) => !v)}>
-                        <div className="col-start-1 row-start-1 ">
+            <div className="flex flex-col items-center justify-center absolute" onClick={()=>setShowDetails((v) => !v)}>
+                        <div className="">
                             <Avatar name={userDetails.name} size={"big"}/>
                         </div>                        
-                        <div className={`col-start-1 row-start-1 right-1 top-20 absolute z-20 transition-opacity ease-in duration-700`}>
-                            {!showDetails ? null: <AvatarDetails />}
+                        <div className={`absolute top-16 z-20 transition-opacity ease-in duration-700`}>
+                            <div className="relative right-6 w-full right-40">
+                                {!showDetails ? null: <AvatarDetails />}
+                            </div>
                         </div>   
             </div>        
         </>

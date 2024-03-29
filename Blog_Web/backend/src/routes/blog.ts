@@ -151,7 +151,12 @@ const app = new Hono<{
                         name:true
                     }
                 }
-            }
+            },
+            orderBy:{
+                publishDate:"desc"
+            },
+            skip:0,
+            take:6
         });
 
         if(!res){
@@ -176,7 +181,7 @@ const app = new Hono<{
 
   });
   
-  app.get("/:id",async  (c) => {
+  app.get("/blogs/:id",async  (c) => {
    
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
@@ -227,4 +232,87 @@ const app = new Hono<{
   
   
   });
+
+  //A route to get blogs while searching
+  app.post("/bulksearch", async (c) => {
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+    
+    try{    
+        /*
+            {
+                searchKeyword
+                skip
+                take
+            }
+        */
+        const body = await c.req.json();
+        console.log("Inside blukSearch: ")
+        console.log(body)
+        //SELECT Count(*) FROM "Blog" WHERE content ~* 'lorem' OR title ~* 'lorem'
+        const number_of_Blogs: {count:string}[]= await prisma.$queryRaw`SELECT Count(*) FROM "Blog" WHERE content ~* ${body.searchKeyword} OR title ~* ${body.searchKeyword}`;
+        console.log(`number of blogs = `);
+        if(number_of_Blogs[0] != null || number_of_Blogs[0] != undefined)
+            console.log(number_of_Blogs[0]?.count)
+
+        if(body.searchKeyword == ""){
+            c.status(411)
+            return c.json({
+                msg:"Empty search"
+            })
+        }
+        
+        const res = await prisma.blog.findMany({
+            where:{
+                OR:[
+                    {
+                        content:{
+                            contains:body.searchKeyword,
+                            mode:'insensitive'
+                        },
+                        title:{
+                            contains:body.searchKeyword,
+                            mode:'insensitive'
+                        }
+                    }
+                ]
+                
+            },
+            select:{
+                content:true,
+                title:true,
+                id:true,
+                publishDate:true,
+                author:{
+                    select:{
+                        name:true
+                    }
+                }
+            },
+            skip:body.skip,
+            take:body.take
+        })
+        console.log("SearchBar blogs------------------------")
+        console.log(res)
+        if(res){
+            c.status(200)
+            return c.json({
+                msg:"Fetched successfully in blogs paginately",
+                blogs:res,
+                number_of_Blogs:parseInt(number_of_Blogs[0]?.count)
+            })
+        }
+
+    }catch(err){
+        c.status(411)
+        return c.json({
+            err:err.message,
+            status:"Error occured while seraching blogs paginately"
+        })
+    }
+
+
+  })
+
   export default app;

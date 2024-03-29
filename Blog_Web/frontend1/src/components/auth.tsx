@@ -41,7 +41,7 @@ export default function Auth({type}: {type: "signup" | "signin"}){
             console.log("sendRequest ------------5-------------------")
             if(res.status == 200){
                 const jtoken = res.data.token;
-                localStorage.setItem('token', jtoken);
+                localStorage.setItem('voicetoken', jtoken);
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + jtoken;
                 const decodedJWT = jwt.decode(jtoken);
                 setUserDetails(decodedJWT);

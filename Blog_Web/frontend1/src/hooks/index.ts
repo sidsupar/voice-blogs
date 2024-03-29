@@ -56,7 +56,7 @@ export const useBlogById = (id?: string): [boolean, BlogById] => {
         const getBlog = async () => {
             // if (!id) return; // Exit early if id is undefined or null
 
-            const getBlogUrl = `${BACKEND_URL}/api/v1/blog/${id}`;
+            const getBlogUrl = `${BACKEND_URL}/api/v1/blog/blogs/${id}`;
             try {
                 const blogsRes = await axios.get(getBlogUrl)
                 console.log(blogsRes)
@@ -111,6 +111,68 @@ export const SubmitPost = async (title: string, textData: string) : Promise<{ su
     )
 
 }
+interface BlogShort{
+    id: number;
+    author: {
+        name: string;
+    };
+    title: string;
+    content: string;
+    publishDate: string;
+    number_of_blogs:string
+}
+export function useSearchBlogs(searchWord:string, pageNumber:number=1): [loading:boolean, blogs:BlogShort[], number_of_blogs:number]{
+    const [loading, setLoading] = useState<boolean>(true);
+    const [blogs, setBlogs] = useState<BlogShort[]>([]);
+    const [blogsCount, setBlogsCount] = useState(0)
+    console.log(`loading =${loading}`);
+    console.log(`blogs = `)
+    console.log(blogs)
+    useEffect(
+        ()=>{
+                try{
+                    async function getBlogs(){
+                        if(searchWord != ""){
+                            const res = await axios.post(`${BACKEND_URL}/api/v1/blog/bulksearch`,{
+                                searchKeyword:searchWord,
+                                skip:pageNumber - 1,
+                                take:5
+                            })
+                            if(res.status == 411){
+                                setLoading(false);
+                                setBlogs([]) 
+                            }
+                            if(res.status != 200){
+                                setLoading(false);
+                                setBlogs([])                            
+                                throw new Error("Not able to search blogs paginately")
+                            }
+                            setLoading(false);
+                            console.log(res.data)
+                            setBlogs(res.data.blogs)
+                            setBlogsCount(res.data.number_of_Blogs)
+                        }
+                        else{
+                            setLoading(false);
+                            setBlogs([]);
+                            setBlogsCount(0);
+                            throw new Error("Empty input")
+                        }
+                    }
+                    getBlogs()
+                }
+                catch(err){
+                        console.log(`Error in fetching blogs paginatey :${err.message}`)
+                }          
+        },[searchWord, pageNumber]
+    )
+    return [
+        loading,
+        blogs,
+        blogsCount
+    ]
+}
+
 // function Date_toYMD(date) {
 //     let year, month, day;
 //     year = String(date.getFullYear());

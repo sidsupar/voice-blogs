@@ -8,12 +8,14 @@ export function AvatarDetails(){
     // console.log(userDetails)
     return(
         <>        
-            <div className="z-10 p-10 border border-black justify-center items-center font-serif max-w-screen-2xl relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-full">
+            <div className="w-full p-2 shadow-lg flex flex-col justify-center z-10 p-5 font-serif text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-full">
                 <div className="">
 
                 </div>
-                <div className="border-b-2 ">
-                    {userDetails.uname}
+                <div className="text-center border-b-2 w-4/5">
+                    <div className="">
+                        {userDetails.uname}
+                    </div>
                 </div>
                 <div className="grid grid-cols-12 mt-10 items-center">
                     <div className="col-span-5 flex flex-col justify-center">

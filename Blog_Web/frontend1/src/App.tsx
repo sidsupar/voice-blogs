@@ -7,6 +7,9 @@ import Blogs from './pages/blogs'
 import axios from 'axios'
 import Publish from './pages/publish'
 import { RecoilRoot } from 'recoil'
+import ProtectRoutes from './components/protectedRoutes'
+import React from 'react'
+import PaginatedBlogs from './pages/paginatedBlogs'
 
 function App() {
   
@@ -22,10 +25,27 @@ function App() {
           <Routes>
               <Route index element={<SignUp />}/>
               <Route path="signup" element={<SignUp />}/>
-              <Route path="signin" element={<SignIn />}/>
-              <Route path="blogs" element={<Blogs />}/>
-              <Route path="blog/:id" element={<Blog />}/>
-              <Route path="/publish" element={<Publish />} />
+              <Route path="signin" element={<SignIn />}/>                
+                <Route path="blogs" element={
+                  <ProtectRoutes>
+                    <Blogs />
+                  </ProtectRoutes>
+                }/>
+                <Route path="blog/:id" element={
+                  <ProtectRoutes>
+                    <Blog />
+                  </ProtectRoutes>
+                }/>
+                <Route path="/publish" element={
+                  <ProtectRoutes>
+                    <Publish />
+                  </ProtectRoutes>
+                } />
+                <Route path="/paginatedSearch" element={
+                  <ProtectRoutes>
+                    <PaginatedBlogs />
+                  </ProtectRoutes>
+                } />                 
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

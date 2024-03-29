@@ -39,7 +39,7 @@ export default function BlogCard({authorName,title,content,publishedDate, id}: B
                         <Circle />
                     </div>
                     <div className="flex justify-center flex-col pl-2 font-thin text-slate-300 text-sm">
-                        {publishedDate}
+                        {publishedDate.replace(/[TZ]/ig," ")}
                     </div>
                     {/* <div>
                         {publishedDate}
