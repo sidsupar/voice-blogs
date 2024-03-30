@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router"
 import { useSearchBlogs } from "../hooks";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import BlogCard from "../components/blogCard";
 import AppBar from "../components/appBar";
 import BlogsSkeleton from "../components/blogsSkeleton";
