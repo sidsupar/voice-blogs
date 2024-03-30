@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchBlogs } from "../hooks";
 import { Link } from "react-router-dom";
-import { useLocation, useNavigate } from "react-router"
+import { useLocation } from "react-router"
 
 function useDebouncedInput(input: string){
     const [inputTyped, setInputTyped] = useState("")
@@ -26,7 +26,7 @@ export function SearchBar(){
     const debouncedInput = useDebouncedInput(input)
     const [loading, blogs, number_of_blogs] = useSearchBlogs(debouncedInput);
     const location = useLocation();
-    
+    console.log(loading)
     // if(loading){
     //     return(
     //         <>

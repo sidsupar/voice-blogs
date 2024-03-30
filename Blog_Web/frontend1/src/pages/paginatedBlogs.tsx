@@ -125,24 +125,24 @@ function PageNumbers({blogsCount, setPage, page}: {blogsCount: number, setPage:R
     )
 }
 
-function SelectPage({page, setPage}:{page:number, setPage:React.Dispatch<React.SetStateAction<number>>}){
+// function SelectPage({page, setPage}:{page:number, setPage:React.Dispatch<React.SetStateAction<number>>}){
 
-    useEffect(()=>{
-        if(page < 1){
-            setPage(1)
-        }
-    },[page])
+//     useEffect(()=>{
+//         if(page < 1){
+//             setPage(1)
+//         }
+//     },[page])
 
-    return(
-        <>
-            <div className="flex justify-center">
-                <div onClick = {()=>setPage((val) => val - 5)} className="mx-2 cursor-pointer">
-                    {"<"}
-                </div>
-                <div onClick = {()=>setPage((val) => val + 5)} className="mx-2 cursor-pointer">
-                    {">"}
-                </div>                
-            </div>
-        </>
-    )
-}
+//     return(
+//         <>
+//             <div className="flex justify-center">
+//                 <div onClick = {()=>setPage((val) => val - 5)} className="mx-2 cursor-pointer">
+//                     {"<"}
+//                 </div>
+//                 <div onClick = {()=>setPage((val) => val + 5)} className="mx-2 cursor-pointer">
+//                     {">"}
+//                 </div>                
+//             </div>
+//         </>
+//     )
+// }

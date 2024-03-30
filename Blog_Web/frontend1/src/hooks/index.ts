@@ -162,8 +162,8 @@ export function useSearchBlogs(searchWord:string, pageNumber:number=1): [loading
                     }
                     getBlogs();
                 }
-                catch(err){
-                        console.log(`Error in fetching blogs paginatey :${err.message}`)
+                catch(err: any){
+                        console.log(`Error in fetching blogs paginatey :${err?.message}`)
                 }          
         },[searchWord, pageNumber]
     )

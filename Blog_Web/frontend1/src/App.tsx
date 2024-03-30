@@ -8,7 +8,6 @@ import axios from 'axios'
 import Publish from './pages/publish'
 import { RecoilRoot } from 'recoil'
 import ProtectRoutes from './components/protectedRoutes'
-import React from 'react'
 import PaginatedBlogs from './pages/paginatedBlogs'
 
 function App() {
