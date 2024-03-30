@@ -107,8 +107,12 @@ function BlogsSearchScreen({blogs}: {blogs:BlogShort[]}){
 }
 
 interface BlogShort{
-    id:string,
-    title:string,
-    publishDate:string,
+    id: number;
+    author: {
+        name: string;
+    };
+    title: string;
+    content: string;
+    publishDate: string;
     number_of_blogs:string
 }

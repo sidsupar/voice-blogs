@@ -126,8 +126,8 @@ export function useSearchBlogs(searchWord:string, pageNumber:number=1): [loading
     const [blogs, setBlogs] = useState<BlogShort[]>([]);
     const [blogsCount, setBlogsCount] = useState(0)
     console.log(`loading =${loading}`);
-    console.log(`blogs = `)
-    console.log(blogs)
+    console.log(`blogs = `);
+    console.log(blogs);
     useEffect(
         ()=>{
                 try{
@@ -139,11 +139,12 @@ export function useSearchBlogs(searchWord:string, pageNumber:number=1): [loading
                                 take:5
                             })
                             if(res.status == 411){
-                                setLoading(false);
-                                setBlogs([]) 
+                                setLoading(true);
+                                setBlogs([]);
+                                throw new Error("Not able to search blogs paginately"); 
                             }
                             if(res.status != 200){
-                                setLoading(false);
+                                setLoading(true);
                                 setBlogs([])                            
                                 throw new Error("Not able to search blogs paginately")
                             }
@@ -153,13 +154,13 @@ export function useSearchBlogs(searchWord:string, pageNumber:number=1): [loading
                             setBlogsCount(res.data.number_of_Blogs)
                         }
                         else{
-                            setLoading(false);
+                            setLoading(true);
                             setBlogs([]);
                             setBlogsCount(0);
                             throw new Error("Empty input")
                         }
                     }
-                    getBlogs()
+                    getBlogs();
                 }
                 catch(err){
                         console.log(`Error in fetching blogs paginatey :${err.message}`)
