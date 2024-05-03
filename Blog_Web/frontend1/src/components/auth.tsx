@@ -63,7 +63,7 @@ export default function Auth({type}: {type: "signup" | "signin"}){
         <>
             <div className="h-screen flex flex-col justify-center w-fit">
                 <div className="text-3xl font-extrabold">
-                    Create an account
+                    {type === "signin"? "Login":"Create an account"}
                     {type ==="signin" ? null: <LabeledInput label="Name" placeholder="Jhon Doe" onChange={(e)=>{setPostinputs({
                         ...postInputs,
                         name: e.target.value
