@@ -2,11 +2,11 @@ import { SignUpInputType } from "@sidsupar/medium-commons";
 import { ChangeEvent, useState } from "react";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import axios from "axios"; 
-import { BACKEND_URL } from "../config.ts"
+// import { BACKEND_URL } from "../config.ts"
 import jwt from "jsonwebtoken";
 import { useSetRecoilState } from "recoil";
 import { userAtom } from "../globalStates/atom.tsx";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 export default function Auth({type}: {type: "signup" | "signin"}){
     const setUserDetails = useSetRecoilState(userAtom);
     const navigate:NavigateFunction = useNavigate();

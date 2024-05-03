@@ -3,7 +3,6 @@ import Quote from "../components/quoteComponent";
 
 export default function SignUp(){
 
-
     return(
         <>
             <div className="grid grid-cols-1 sm:grid-cols-2">

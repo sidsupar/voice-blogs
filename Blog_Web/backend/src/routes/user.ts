@@ -11,8 +11,6 @@ const app = new Hono<{
     }
   }>();
 
-
-
 app.post("/signup", InputValidationSignUp,async (c) => {
 
     const prisma = new PrismaClient({
