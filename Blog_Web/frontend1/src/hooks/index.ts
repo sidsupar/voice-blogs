@@ -2,6 +2,10 @@ import { useEffect, useState } from "react"
 // import { BACKEND_URL } from "../config";
 import axios from "axios";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+if(localStorage.getItem('token') != null){
+    // axios.defaults.headers.common['Authorization'] = 'Bearer ' + jwt;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token');
+}
 console.log(`backend url: ${BACKEND_URL}`);
 interface Blog {
     id: number;
